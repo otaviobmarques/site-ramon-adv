@@ -176,7 +176,7 @@ a.contact-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
 .footer-inner { display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
 .footer strong { color: #fff; font-family: var(--font-display); font-size: 1.1rem; }
 .footer p { margin: .2rem 0; }
-.footer-links { display: grid; gap: .4rem; }
+.footer-links { display: grid; gap: .5rem; align-content: start; }
 .footer-links a { text-decoration: none; opacity: .8; }
 .footer-links a:hover { opacity: 1; color: var(--teal-2); }
 .fine { border-top: 1px solid rgba(255,255,255,.08); margin-top: 2rem; padding-top: 1.2rem; font-size: .8rem; color: rgba(255,255,255,.45); }
@@ -430,7 +430,7 @@ li.ok .check { background: var(--teal); border-color: var(--teal); color: #fff; 
 .admin-header h1 { font-size: clamp(1.8rem, 3vw, 2.4rem); }
 .admin-card .two > label, .admin-card .two { align-items: start; }
 .brand span:last-child { white-space: nowrap; }
-@media (max-width: 420px) { .nav .brand span:last-child { display: none; } }
+
 .contact-grid.one { grid-template-columns: 1fr 1fr; }
 @media (max-width: 600px) { .contact-grid.one { grid-template-columns: 1fr; } }
 
@@ -447,3 +447,18 @@ li.ok .check { background: var(--teal); border-color: var(--teal); color: #fff; 
 .lawyer-list li { position: relative; padding-left: 1.8rem; }
 .lawyer-list li::before { content: "✓"; position: absolute; left: 0; top: .1rem; width: 1.25rem; height: 1.25rem; border-radius: 50%; display: grid; place-items: center; font-size: .7rem; font-weight: 800; color: #fff; background: linear-gradient(135deg, var(--teal), var(--sky)); }
 @media (max-width: 980px) { .lawyer { grid-template-columns: 1fr; } }
+
+/* Logo */
+.logo { display: inline-flex; align-items: center; gap: .7rem; }
+.logo img { display: block; height: auto; }
+.logo-txt { display: grid; line-height: 1.05; }
+.logo-txt strong { font-family: "Cormorant Garamond", Georgia, serif; font-family: var(--font-logo), Georgia, serif; font-weight: 700; font-size: 1.22rem; letter-spacing: .02em; text-transform: uppercase; white-space: nowrap; }
+.logo-txt small { font-size: .62rem; letter-spacing: .32em; text-transform: uppercase; opacity: .75; font-weight: 600; margin-top: 3px; white-space: nowrap; }
+.brand.dark .logo-txt strong { color: #0b2240; }
+.brand.dark .logo-txt small { color: #a8864f; opacity: 1; }
+.brand .logo-txt small { color: #d4af6e; opacity: 1; }
+.logo-full { display: block; height: auto; max-width: 100%; margin-bottom: .6rem; }
+.login-logo { display: flex; justify-content: center; margin-bottom: .4rem; }
+.at-logo { display: flex; justify-content: center; margin-bottom: .2rem; }
+.at-side .brand .logo-txt strong { font-size: 1.05rem; }
+@media (max-width: 420px) { .nav .logo-txt { display: none; } }

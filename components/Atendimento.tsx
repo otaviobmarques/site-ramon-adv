@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { LogoMarca } from "./Logo";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { EstadoCliente } from "@/lib/estado";
 
@@ -193,7 +194,7 @@ export default function Atendimento({
       <main className="at-shell center">
         <div className="hero-bg" aria-hidden="true"><span className="blob b1" /><span className="blob b2" /></div>
         <div className="at-card fade-up">
-          <span className="avatar lg">{assistente.slice(0, 1)}</span>
+          <div className="at-logo"><LogoMarca tom="claro" altura={48} /></div>
           <h1>Atendimento on-line</h1>
           <p>
             Você vai conversar com <strong>{assistente}</strong>, a assistente virtual com <strong>inteligência artificial</strong> do
@@ -226,7 +227,7 @@ export default function Atendimento({
   return (
     <main className="at-app">
       <aside className="at-side">
-        <Link href="/" className="brand small"><span className="brand-mark">R</span><span>{escritorio}</span></Link>
+        <Link href="/" className="brand"><LogoMarca tom="claro" altura={36} /></Link>
         <div className="at-progress">
           <div className="at-progress-head">
             <span>Seu progresso</span>

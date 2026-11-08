@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { LogoMarca } from "./Logo";
 
 export default function AdminShell({ children, escritorio }: { children: React.ReactNode; escritorio: string }) {
   const path = usePathname();
@@ -13,7 +14,7 @@ export default function AdminShell({ children, escritorio }: { children: React.R
     <div className="adm">
       <header className="adm-top">
         <div className="adm-top-inner">
-          <Link href="/admin" className="brand small dark"><span className="brand-mark">R</span><span>{escritorio}</span></Link>
+          <Link href="/admin" className="brand dark"><LogoMarca tom="escuro" altura={34} /></Link>
           <nav>
             <Link href="/admin" className={path === "/admin" || path.startsWith("/admin/casos") ? "on" : ""}>Funil de casos</Link>
             <Link href="/admin/configuracoes" className={path.startsWith("/admin/configuracoes") ? "on" : ""}>Configurações</Link>

@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Ramon Advocacia",
-    short_name: "Ramon Adv.",
+    name: "Dr. Ramon Nunes · Direito Bancário",
+    short_name: "Dr. Ramon Nunes",
     description: "Atendimento on-line para vítimas de golpes e fraudes pelo PIX.",
     start_url: "/",
     display: "standalone",

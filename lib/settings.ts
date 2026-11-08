@@ -34,8 +34,8 @@ export interface SiteSettings {
 }
 
 export const DEFAULT_SETTINGS: SiteSettings = {
-  officeName: "Ramon Advocacia",
-  lawyerName: "Dr. Ramon",
+  officeName: "Dr. Ramon Nunes · Direito Bancário",
+  lawyerName: "Dr. Ramon Nunes",
   oab: "OAB/SC 75.149-A",
   tagline: "Caiu em um golpe pelo PIX? Entenda seus direitos e o que fazer agora.",
   about:

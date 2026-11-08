@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Faq from "@/components/Faq";
 import HeroChat from "@/components/HeroChat";
+import { LogoCompleto, LogoMarca } from "@/components/Logo";
 import Reveal from "@/components/Reveal";
 import { getSettings, publicView } from "@/lib/settings";
 
@@ -39,9 +40,8 @@ export default async function Home() {
       <Reveal />
       <header className="nav">
         <div className="container nav-inner">
-          <Link href="/" className="brand">
-            <span className="brand-mark">R</span>
-            <span>{s.officeName}</span>
+          <Link href="/" className="brand" aria-label="Dr. Ramon Nunes · Direito Bancário">
+            <LogoMarca tom="claro" altura={42} />
           </Link>
           <nav className="nav-links">
             <a href="#como-funciona">Como funciona</a>
@@ -205,8 +205,8 @@ export default async function Home() {
       <footer className="footer">
         <div className="container footer-inner">
           <div>
-            <strong>{s.officeName}</strong>
-            <p>{s.lawyerName} · {s.oab}</p>
+            <LogoCompleto tom="claro" largura={240} />
+            <p>{s.oab}</p>
             {s.address && <p>{s.address}</p>}
           </div>
           <div className="footer-links">

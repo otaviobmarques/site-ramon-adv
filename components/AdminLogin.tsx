@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { LogoCompleto } from "./Logo";
 
 export default function AdminLogin() {
   const [username, setUsername] = useState("");
@@ -28,6 +29,7 @@ export default function AdminLogin() {
   return (
     <main className="admin-shell">
       <form className="admin-card narrow" onSubmit={submit}>
+        <div className="login-logo"><LogoCompleto tom="escuro" largura={240} /></div>
         <p className="eyebrow">Acesso restrito</p>
         <h1>Área do Advogado</h1>
         <label>
