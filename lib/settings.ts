@@ -41,7 +41,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     "Atuamos com ética, transparência e dedicação para oferecer soluções jurídicas personalizadas, seja na prevenção de conflitos ou na defesa dos seus interesses em juízo.",
   phone: "(74) 99137-1324",
   whatsapp: "5574991371324",
-  email: "contato@ramonadvocacia.com.br",
+  email: "adv.ramonnunes@gmail.com",
   address: "Rua Exemplo, 123 — Centro, Cidade/UF",
   practiceAreas: [
     "Direito Civil",
