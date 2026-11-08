@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import Faq from "@/components/Faq";
 import HeroChat from "@/components/HeroChat";
@@ -44,6 +45,7 @@ export default async function Home() {
           </Link>
           <nav className="nav-links">
             <a href="#como-funciona">Como funciona</a>
+            <a href="#advogado">O advogado</a>
             <a href="#o-que-fazer">O que fazer agora</a>
             <a href="#duvidas">Dúvidas</a>
             <a href="#contato">Contato</a>
@@ -101,6 +103,32 @@ export default async function Home() {
                   <p>{p.d}</p>
                 </article>
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="advogado" className="section">
+          <div className="container lawyer">
+            <div className="lawyer-photo" data-reveal>
+              <div className="photo-frame">
+                <Image src="/dr-ramon.jpg" alt={`Foto de ${s.lawyerName}`} width={427} height={577} priority={false} sizes="(max-width: 980px) 80vw, 380px" />
+              </div>
+              <span className="photo-badge">{s.oab}</span>
+            </div>
+            <div data-reveal style={{ "--d": "120ms" } as React.CSSProperties}>
+              <p className="eyebrow">Quem vai cuidar do seu caso</p>
+              <h2>{s.lawyerName}</h2>
+              <p className="lawyer-oab">Advogado · {s.oab}</p>
+              <p className="muted">
+                Atua na defesa de vítimas de golpes pelo PIX e fraudes bancárias. Cada caso que chega pelo atendimento on-line é
+                analisado pessoalmente por ele, com o dossiê, os documentos e o seu relato organizados antes da consulta.
+              </p>
+              <ul className="lawyer-list">
+                <li>Atendimento presencial ou por vídeo</li>
+                <li>Análise individual de cada caso</li>
+                <li>Acompanhamento das notificações aos bancos e dos prazos</li>
+              </ul>
+              <Link href="/atendimento" className="btn btn-primary btn-lg">Começar meu atendimento <span className="arrow">→</span></Link>
             </div>
           </div>
         </section>
@@ -183,7 +211,7 @@ export default async function Home() {
           </div>
           <div className="footer-links">
             <Link href="/privacidade">Política de privacidade</Link>
-            <Link href="/admin">Área do escritório</Link>
+            <Link href="/area-do-advogado">Área do Advogado</Link>
           </div>
         </div>
         <div className="container">

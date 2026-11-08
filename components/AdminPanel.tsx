@@ -70,7 +70,7 @@ export default function AdminPanel({ initial, models }: { initial: View; models:
       <div className="admin-wrap">
         <header className="admin-header">
           <div>
-            <p className="eyebrow">Portal do escritório</p>
+            <p className="eyebrow">Área do Advogado</p>
             <h1>Configurações</h1>
           </div>
         </header>

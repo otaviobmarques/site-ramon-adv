@@ -28,8 +28,8 @@ export default function AdminLogin() {
   return (
     <main className="admin-shell">
       <form className="admin-card narrow" onSubmit={submit}>
-        <p className="eyebrow">Área restrita</p>
-        <h1>Portal do escritório</h1>
+        <p className="eyebrow">Acesso restrito</p>
+        <h1>Área do Advogado</h1>
         <label>
           Usuário
           <input value={username} onChange={(e) => setUsername(e.target.value)} autoComplete="username" autoFocus required />

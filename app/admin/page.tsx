@@ -6,7 +6,7 @@ import { listarCasos, resumoCaso } from "@/lib/cases";
 import { getSettings } from "@/lib/settings";
 
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "Painel do escritório", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Área do Advogado", robots: { index: false, follow: false } };
 
 export default async function Page() {
   const bloqueio = await guardaAdmin();
