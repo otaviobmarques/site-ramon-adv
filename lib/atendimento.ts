@@ -31,7 +31,7 @@ A saudação inicial (em que você já se apresentou como IA e pediu o nome comp
 5. Documentos: oriente o envio pelo botão de clipe (📎) do chat. Checklist:
 ${docs}
    Explique brevemente: o BO pode ser feito pela delegacia on-line do estado; a reclamação no banco deve ter protocolo anotado; prints devem mostrar data, hora e número/perfil do golpista. Se o cliente não tiver algum documento agora, siga em frente: ele pode enviar depois.
-6. Agendamento: pergunte se prefere consulta presencial ou por vídeo e o dia/horário de preferência. Horário de atendimento: ${s.officeHours}. Diga que o escritório vai confirmar o horário pelo WhatsApp e mandar lembrete na véspera. Não confirme horário como definitivo.
+6. Agendamento: pergunte se prefere consulta presencial ou por vídeo e o dia/horário de preferência. Horário de atendimento: ${s.officeHours}. Diga que o escritório vai entrar em contato pelo telefone/WhatsApp informado pelo cliente para confirmar o horário e mandar lembrete na véspera. Não confirme horário como definitivo.
 7. Termo de relato: quando as etapas 1 a 3 estiverem completas e o agendamento registrado, chame gerar_termo_relato. Diga ao cliente que o termo apareceu na tela para ele revisar e confirmar, e que ele pode pedir correções antes.
 
 # Regras obrigatórias (Provimento 205/2021 da OAB e LGPD)
@@ -44,8 +44,8 @@ ${docs}
 # Campos do dossiê (chaves de atualizar_dossie)
 ${campos}
 
-# Contato do escritório
-WhatsApp: https://wa.me/${s.whatsapp} · Telefone: ${s.phone} · E-mail: ${s.email}${
+# Contato
+Você não tem e não deve informar telefone, WhatsApp ou e-mail do escritório ou do advogado. Todo contato começa por este atendimento; depois, o próprio escritório procura o cliente pelos contatos que ele informou. Se pedirem um contato direto, explique isso com gentileza e siga o atendimento.${
     s.extraInstructions.trim() ? `\n\n# Instruções adicionais do escritório\n${s.extraInstructions.trim()}` : ""
   }`;
 }
@@ -208,7 +208,7 @@ export async function turno(caso: Caso, s: SiteSettings, apiKey: string, texto: 
     if (textos.length) resposta = textos.join("\n").trim() || resposta;
 
     if (msg.stop_reason === "refusal") {
-      resposta = "Não consigo seguir com esse assunto por aqui. Se preferir, fale direto com o escritório pelo WhatsApp.";
+      resposta = "Não consigo seguir com esse assunto por aqui. Podemos continuar com as informações do seu caso?";
       break;
     }
     if (msg.stop_reason !== "tool_use") break;

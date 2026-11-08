@@ -27,12 +27,12 @@ export async function POST(req: Request) {
   caso.apiMessages.push({ role: "user", content: "[Sistema] O cliente revisou e confirmou o Termo de Relato." });
   caso.conversa.push({
     role: "assistant",
-    texto: "Obrigada! Seu termo foi confirmado e o seu caso já está com o advogado. O escritório vai entrar em contato pelo WhatsApp para confirmar o horário da consulta. Se lembrar de mais alguma informação ou documento, pode enviar por aqui.",
+    texto: "Obrigada! Seu termo foi confirmado e o seu caso já está com o advogado. O escritório vai entrar em contato pelo telefone que você informou para confirmar o horário da consulta. Se lembrar de mais alguma informação ou documento, pode enviar por aqui.",
     em: new Date().toISOString(),
   });
   caso.apiMessages.push({
     role: "assistant",
-    content: "Obrigada! Seu termo foi confirmado e o seu caso já está com o advogado. O escritório vai entrar em contato pelo WhatsApp para confirmar o horário da consulta. Se lembrar de mais alguma informação ou documento, pode enviar por aqui.",
+    content: "Obrigada! Seu termo foi confirmado e o seu caso já está com o advogado. O escritório vai entrar em contato pelo telefone que você informou para confirmar o horário da consulta. Se lembrar de mais alguma informação ou documento, pode enviar por aqui.",
   });
   await notificarConclusao(caso, await getSettings(), baseUrl(req));
   await salvarCaso(caso);

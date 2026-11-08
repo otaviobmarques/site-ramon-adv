@@ -431,3 +431,5 @@ li.ok .check { background: var(--teal); border-color: var(--teal); color: #fff; 
 .admin-card .two > label, .admin-card .two { align-items: start; }
 .brand span:last-child { white-space: nowrap; }
 @media (max-width: 420px) { .nav .brand span:last-child { display: none; } }
+.contact-grid.one { grid-template-columns: 1fr 1fr; }
+@media (max-width: 600px) { .contact-grid.one { grid-template-columns: 1fr; } }

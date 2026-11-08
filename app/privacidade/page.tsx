@@ -21,7 +21,7 @@ export default async function Privacidade() {
         <h2>Armazenamento e segurança</h2>
         <p>Os dados ficam em armazenamento privado, com acesso restrito ao escritório por login. Guardamos as informações pelo tempo necessário ao atendimento e às obrigações legais e profissionais.</p>
         <h2>Seus direitos</h2>
-        <p>Você pode pedir acesso, correção ou exclusão dos seus dados a qualquer momento pelo e-mail <a href={`mailto:${s.email}`}>{s.email}</a> ou pelo WhatsApp {s.phone}.</p>
+        <p>Você pode pedir acesso, correção ou exclusão dos seus dados a qualquer momento, escrevendo o pedido no próprio <Link href="/atendimento">atendimento on-line</Link> ou diretamente ao advogado na consulta.</p>
       </div>
     </main>
   );

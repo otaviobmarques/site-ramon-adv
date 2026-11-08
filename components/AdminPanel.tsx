@@ -79,11 +79,11 @@ export default function AdminPanel({ initial, models }: { initial: View; models:
 
         <section className="admin-card highlight">
           <h2>Contato e notificações</h2>
-          <p className="muted small">Estes dados aparecem no site e na assistente. Os resultados de cada atendimento vão para o e-mail de notificações.</p>
+          <p className="muted small">Uso interno: telefone, WhatsApp e e-mail não aparecem no site nem são informados pela assistente. Os resultados de cada atendimento vão para o e-mail de notificações.</p>
           <div className="two">
             {field("whatsapp", "WhatsApp do escritório (com DDI e DDD)", { hint: "Somente números, ex.: 5574991371324" })}
-            {field("phone", "Telefone exibido no site")}
-            {field("email", "E-mail exibido no site")}
+            {field("phone", "Telefone do escritório")}
+            {field("email", "E-mail do escritório")}
             {field("notifyEmail", "E-mail que recebe os contatos", { hint: "Novo lead e atendimento concluído chegam aqui." })}
           </div>
           {field("officeHours", "Horário de atendimento")}

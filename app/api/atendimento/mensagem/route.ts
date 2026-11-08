@@ -16,7 +16,7 @@ export async function POST(req: Request) {
 
   const caso = id && token ? await lerCasoCliente(id, token) : null;
   if (!caso) return erro("Atendimento não encontrado. Recarregue a página.", 404);
-  if (caso.conversa.length > 300) return erro("Este atendimento atingiu o limite de mensagens. Fale conosco pelo WhatsApp.", 429);
+  if (caso.conversa.length > 300) return erro("Este atendimento atingiu o limite de mensagens. O escritório já recebeu suas informações e vai entrar em contato.", 429);
 
   const s = await getSettings();
   const { key } = getApiKey(s);
@@ -27,7 +27,7 @@ export async function POST(req: Request) {
   } catch (err) {
     if (err instanceof Anthropic.AuthenticationError) console.error("Chave de IA inválida");
     else console.error("Erro no atendimento:", err);
-    return erro("Tive um problema para responder agora. Tente de novo em instantes ou fale conosco pelo WhatsApp.", 502);
+    return erro("Tive um problema para responder agora. Tente de novo em instantes.", 502);
   }
   await notificarNovoLead(caso, s, baseUrl(req));
   await salvarCaso(caso);

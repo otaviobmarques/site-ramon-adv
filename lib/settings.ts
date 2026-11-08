@@ -36,14 +36,14 @@ export interface SiteSettings {
 export const DEFAULT_SETTINGS: SiteSettings = {
   officeName: "Ramon Advocacia",
   lawyerName: "Dr. Ramon",
-  oab: "OAB/UF 000.000",
+  oab: "OAB/SC 75.149-A",
   tagline: "Caiu em um golpe pelo PIX? Entenda seus direitos e o que fazer agora.",
   about:
     "Atendemos vítimas de fraudes bancárias e golpes pelo PIX com um processo organizado: do primeiro contato à análise do caso pelo advogado, com todos os documentos e prazos sob controle.",
   phone: "(74) 99137-1324",
   whatsapp: "5574991371324",
   email: "adv.ramonnunes@gmail.com",
-  address: "Rua Exemplo, 123 — Centro, Cidade/UF",
+  address: "",
   practiceAreas: [
     "Golpes e fraudes pelo PIX",
     "Fraudes bancárias e cartões",
@@ -113,7 +113,7 @@ export function adminView(s: SiteSettings) {
 
 /** Visão pública para o site: sem nada sensível. */
 export function publicView(s: SiteSettings) {
-  const { apiKeyEnc: _a, extraInstructions: _b, model: _c, effort: _d, notifyEmail: _e, ...rest } = s;
+  const { apiKeyEnc: _a, extraInstructions: _b, model: _c, effort: _d, notifyEmail: _e, phone: _f, whatsapp: _g, email: _h, ...rest } = s;
   return { ...rest, chatAvailable: s.chatEnabled && Boolean(getApiKey(s).key) };
 }
 export type PublicSettings = ReturnType<typeof publicView>;

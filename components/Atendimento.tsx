@@ -43,13 +43,11 @@ export default function Atendimento({
   disponivel,
   assistente,
   escritorio,
-  whatsapp,
   checklist,
 }: {
   disponivel: boolean;
   assistente: string;
   escritorio: string;
-  whatsapp: string;
   checklist: { tipo: string; label: string }[];
 }) {
   const [sessao, setSessao] = useState<Sessao | null>(null);
@@ -67,8 +65,6 @@ export default function Atendimento({
   const [termoAberto, setTermoAberto] = useState(false);
   const fimRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
-
-  const waUrl = `https://wa.me/${whatsapp}`;
 
   useEffect(() => {
     const s = lerSessao();
@@ -185,8 +181,7 @@ export default function Atendimento({
       <main className="at-shell center">
         <div className="at-card fade-up">
           <h1>Atendimento on-line indisponível</h1>
-          <p>No momento, fale com o escritório diretamente pelo WhatsApp.</p>
-          <a href={waUrl} className="btn btn-primary" target="_blank" rel="noopener noreferrer">Abrir WhatsApp</a>
+          <p>Estamos fazendo uma manutenção rápida. Por favor, tente novamente em alguns minutos.</p>
           <Link href="/" className="link-muted">← Voltar ao site</Link>
         </div>
       </main>
@@ -254,7 +249,6 @@ export default function Atendimento({
           </div>
         )}
         <div className="at-side-foot">
-          <a href={waUrl} target="_blank" rel="noopener noreferrer">Falar com uma pessoa no WhatsApp</a>
           <button onClick={recomecar}>Novo atendimento</button>
         </div>
       </aside>
@@ -288,7 +282,7 @@ export default function Atendimento({
           {estado.termo && !concluido && !termoAberto && (
             <button className="termo-banner" onClick={() => setTermoAberto(true)}>📝 Revisar e confirmar o Termo de Relato</button>
           )}
-          {concluido && <div className="done-banner">✅ Atendimento concluído. O escritório vai falar com você pelo WhatsApp.</div>}
+          {concluido && <div className="done-banner">✅ Atendimento concluído. O escritório vai entrar em contato com você.</div>}
           <div ref={fimRef} />
         </div>
 

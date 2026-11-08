@@ -26,12 +26,12 @@ const FAQ = [
   { p: "Meus dados ficam seguros?", r: "Sim. Só pedimos o necessário para o atendimento, com o seu consentimento, em armazenamento privado e com acesso restrito ao escritório, conforme a LGPD. Você pode pedir a exclusão a qualquer momento." },
   { p: "Preciso ter todos os documentos agora?", r: "Não. Envie o que tiver. A assistente explica o que falta e você pode completar depois, até a consulta." },
   { p: "Quanto custa?", r: "Valores e condições são apresentados somente pelo advogado, na consulta, depois de entender o seu caso." },
+  { p: "Como falo com o advogado?", r: "Comece pelo atendimento on-line. Ao final, o escritório entra em contato com você pelo telefone que você informar para confirmar a consulta." },
 ];
 
 export default async function Home() {
   const s = publicView(await getSettings());
-  const wa = `https://wa.me/${s.whatsapp}?text=${encodeURIComponent("Olá! Gostaria de falar sobre um golpe do PIX.")}`;
-  const cta = s.chatAvailable ? "/atendimento" : wa;
+  const cta = "/atendimento";
 
   return (
     <>
@@ -162,18 +162,12 @@ export default async function Home() {
               </div>
               <Link href={cta} className="btn btn-light btn-lg">Iniciar atendimento <span className="arrow">→</span></Link>
             </div>
-            <div className="contact-grid">
-              <a href={wa} target="_blank" rel="noopener noreferrer" className="contact-card" data-reveal>
-                <span>WhatsApp</span><strong>{s.phone}</strong>
-              </a>
-              <a href={`tel:+${s.whatsapp}`} className="contact-card" data-reveal style={{ "--d": "80ms" } as React.CSSProperties}>
-                <span>Telefone</span><strong>{s.phone}</strong>
-              </a>
-              <a href={`mailto:${s.email}`} className="contact-card" data-reveal style={{ "--d": "160ms" } as React.CSSProperties}>
-                <span>E-mail</span><strong>{s.email}</strong>
-              </a>
-              <div className="contact-card" data-reveal style={{ "--d": "240ms" } as React.CSSProperties}>
-                <span>Atendimento</span><strong>{s.officeHours}</strong>
+            <div className="contact-grid one">
+              <div className="contact-card" data-reveal>
+                <span>Horário de atendimento do escritório</span><strong>{s.officeHours}</strong>
+              </div>
+              <div className="contact-card" data-reveal style={{ "--d": "80ms" } as React.CSSProperties}>
+                <span>Atendimento on-line</span><strong>24 horas, pela nossa assistente virtual</strong>
               </div>
             </div>
           </div>
@@ -185,7 +179,7 @@ export default async function Home() {
           <div>
             <strong>{s.officeName}</strong>
             <p>{s.lawyerName} · {s.oab}</p>
-            <p>{s.address}</p>
+            {s.address && <p>{s.address}</p>}
           </div>
           <div className="footer-links">
             <Link href="/privacidade">Política de privacidade</Link>
@@ -200,9 +194,6 @@ export default async function Home() {
         </div>
       </footer>
 
-      <a href={wa} target="_blank" rel="noopener noreferrer" className="wa-fab" aria-label="Falar no WhatsApp">
-        <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"/></svg>
-      </a>
     </>
   );
 }

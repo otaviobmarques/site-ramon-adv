@@ -13,7 +13,6 @@ export default async function Page() {
       disponivel={s.chatAvailable}
       assistente={s.assistantName}
       escritorio={s.officeName}
-      whatsapp={s.whatsapp}
       checklist={CHECKLIST_DOCUMENTOS.map((d) => ({ ...d }))}
     />
   );
