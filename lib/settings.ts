@@ -39,8 +39,8 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   tagline: "Advocacia próxima, estratégica e comprometida com o seu direito.",
   about:
     "Atuamos com ética, transparência e dedicação para oferecer soluções jurídicas personalizadas, seja na prevenção de conflitos ou na defesa dos seus interesses em juízo.",
-  phone: "(00) 0000-0000",
-  whatsapp: "5500000000000",
+  phone: "(74) 99137-1324",
+  whatsapp: "5574991371324",
   email: "contato@ramonadvocacia.com.br",
   address: "Rua Exemplo, 123 — Centro, Cidade/UF",
   practiceAreas: [
