@@ -1,27 +1,20 @@
 import type { Metadata } from "next";
-import AdminLogin from "@/components/AdminLogin";
-import AdminPanel from "@/components/AdminPanel";
-import { adminConfigured, isAdmin } from "@/lib/auth";
-import { adminView, getSettings, MODELS } from "@/lib/settings";
+import AdminShell from "@/components/AdminShell";
+import Funil from "@/components/Funil";
+import { guardaAdmin } from "@/lib/adminGuard";
+import { listarCasos, resumoCaso } from "@/lib/cases";
+import { getSettings } from "@/lib/settings";
 
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "Portal do escritório", robots: { index: false, follow: false } };
+export const metadata: Metadata = { title: "Painel do escritório", robots: { index: false, follow: false } };
 
-export default async function AdminPage() {
-  if (!adminConfigured()) {
-    return (
-      <main className="admin-shell">
-        <div className="admin-card narrow">
-          <h1>Portal não configurado</h1>
-          <p>
-            Defina as variáveis de ambiente <code>ADMIN_PASSWORD</code> e <code>SESSION_SECRET</code> (mínimo 16
-            caracteres) na Vercel e faça um novo deploy.
-          </p>
-        </div>
-      </main>
-    );
-  }
-  if (!(await isAdmin())) return <AdminLogin />;
-  const initial = adminView(await getSettings());
-  return <AdminPanel initial={initial} models={MODELS.map((m) => ({ ...m }))} />;
+export default async function Page() {
+  const bloqueio = await guardaAdmin();
+  if (bloqueio) return bloqueio;
+  const [s, casos] = await Promise.all([getSettings(), listarCasos()]);
+  return (
+    <AdminShell escritorio={s.officeName}>
+      <Funil inicial={casos.map(resumoCaso)} />
+    </AdminShell>
+  );
 }

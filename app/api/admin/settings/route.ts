@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 
 const STRING_FIELDS = [
   "officeName", "lawyerName", "oab", "tagline", "about", "phone", "whatsapp", "email", "address",
-  "assistantName", "welcomeMessage", "extraInstructions",
+  "assistantName", "welcomeMessage", "extraInstructions", "notifyEmail", "officeHours",
 ] as const;
 
 export async function GET() {

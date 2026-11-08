@@ -28,7 +28,7 @@ export default function AdminLogin() {
   return (
     <main className="admin-shell">
       <form className="admin-card narrow" onSubmit={submit}>
-        <p className="eyebrow dark">Área restrita</p>
+        <p className="eyebrow">Área restrita</p>
         <h1>Portal do escritório</h1>
         <label>
           Usuário
@@ -39,7 +39,7 @@ export default function AdminLogin() {
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password" required />
         </label>
         {error && <p className="alert error">{error}</p>}
-        <button className="btn btn-gold" disabled={loading}>{loading ? "Entrando…" : "Entrar"}</button>
+        <button className="btn btn-primary" disabled={loading}>{loading ? "Entrando…" : "Entrar"}</button>
         <a href="/" className="muted small">← Voltar ao site</a>
       </form>
     </main>

@@ -1,7 +1,6 @@
-import { promises as fs } from "node:fs";
-import path from "node:path";
-import { get, put } from "@vercel/blob";
 import { decrypt, encrypt } from "./crypto";
+import { emailConfigurado } from "./email";
+import { readJSON, useBlob, writeJSON } from "./store";
 
 export const MODELS = [
   { id: "claude-opus-5-5", label: "Claude Opus 5.5 (mais inteligente)" },
@@ -28,6 +27,8 @@ export interface SiteSettings {
   model: string;
   effort: Effort;
   extraInstructions: string;
+  notifyEmail: string;
+  officeHours: string;
   apiKeyEnc?: string;
   updatedAt?: string;
 }
@@ -36,78 +37,38 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   officeName: "Ramon Advocacia",
   lawyerName: "Dr. Ramon",
   oab: "OAB/UF 000.000",
-  tagline: "Advocacia próxima, estratégica e comprometida com o seu direito.",
+  tagline: "Caiu em um golpe pelo PIX? Entenda seus direitos e o que fazer agora.",
   about:
-    "Atuamos com ética, transparência e dedicação para oferecer soluções jurídicas personalizadas, seja na prevenção de conflitos ou na defesa dos seus interesses em juízo.",
+    "Atendemos vítimas de fraudes bancárias e golpes pelo PIX com um processo organizado: do primeiro contato à análise do caso pelo advogado, com todos os documentos e prazos sob controle.",
   phone: "(74) 99137-1324",
   whatsapp: "5574991371324",
   email: "adv.ramonnunes@gmail.com",
   address: "Rua Exemplo, 123 — Centro, Cidade/UF",
   practiceAreas: [
-    "Direito Civil",
-    "Direito do Trabalho",
-    "Direito de Família e Sucessões",
+    "Golpes e fraudes pelo PIX",
+    "Fraudes bancárias e cartões",
+    "Empréstimos não reconhecidos",
     "Direito do Consumidor",
-    "Direito Previdenciário",
-    "Direito Empresarial",
   ],
   chatEnabled: true,
-  assistantName: "Assistente Virtual",
+  assistantName: "Lia",
   welcomeMessage:
-    "Olá! Sou o assistente virtual do escritório. Posso tirar dúvidas gerais e ajudar a agendar um atendimento. Como posso ajudar?",
+    "Olá! Eu sou a Lia, assistente virtual com inteligência artificial do escritório. Vou fazer algumas perguntas para organizar o seu caso e agendar sua consulta com o advogado. Para começar, qual é o seu nome completo?",
   model: "claude-opus-5-5",
-  effort: "low",
+  effort: "medium",
   extraInstructions: "",
+  notifyEmail: "adv.ramonnunes@gmail.com",
+  officeHours: "Segunda a sexta, das 9h às 18h",
 };
 
-const BLOB_PATH = "config/settings.json";
-const LOCAL_FILE = path.join(process.cwd(), ".data", "settings.json");
-
-function useBlob(): boolean {
-  return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
-}
+const SETTINGS_PATH = "config/settings.json";
 
 export function storageMode(): "vercel-blob" | "arquivo-local" {
   return useBlob() ? "vercel-blob" : "arquivo-local";
 }
 
-async function readRaw(): Promise<Partial<SiteSettings> | null> {
-  try {
-    if (useBlob()) {
-      const res = await get(BLOB_PATH, { access: "private", useCache: false });
-      if (!res || res.statusCode !== 200) return null;
-      return JSON.parse(await new Response(res.stream).text());
-    }
-    return JSON.parse(await fs.readFile(LOCAL_FILE, "utf8"));
-  } catch (err) {
-    if ((err as NodeJS.ErrnoException)?.code !== "ENOENT") {
-      console.error("Falha ao ler configurações:", err);
-    }
-    return null;
-  }
-}
-
-async function writeRaw(data: SiteSettings): Promise<void> {
-  const json = JSON.stringify(data, null, 2);
-  if (useBlob()) {
-    await put(BLOB_PATH, json, {
-      access: "private",
-      addRandomSuffix: false,
-      allowOverwrite: true,
-      contentType: "application/json",
-      cacheControlMaxAge: 60,
-    });
-    return;
-  }
-  if (process.env.VERCEL) {
-    throw new Error("Conecte um Vercel Blob Store ao projeto para salvar as configurações.");
-  }
-  await fs.mkdir(path.dirname(LOCAL_FILE), { recursive: true });
-  await fs.writeFile(LOCAL_FILE, json, "utf8");
-}
-
 export async function getSettings(): Promise<SiteSettings> {
-  const raw = await readRaw();
+  const raw = await readJSON<Partial<SiteSettings>>(SETTINGS_PATH);
   return { ...DEFAULT_SETTINGS, ...(raw ?? {}) };
 }
 
@@ -122,7 +83,7 @@ export async function saveSettings(update: SettingsUpdate): Promise<SiteSettings
   const next: SiteSettings = { ...current, ...rest, updatedAt: new Date().toISOString() };
   if (removeApiKey) delete next.apiKeyEnc;
   if (apiKey && apiKey.trim()) next.apiKeyEnc = encrypt(apiKey.trim());
-  await writeRaw(next);
+  await writeJSON(SETTINGS_PATH, next);
   return next;
 }
 
@@ -147,12 +108,12 @@ export function maskKey(key: string | null): string | null {
 export function adminView(s: SiteSettings) {
   const { apiKeyEnc: _omit, ...rest } = s;
   const { key, source } = getApiKey(s);
-  return { ...rest, apiKeyMasked: maskKey(key), apiKeySource: source, storage: storageMode() };
+  return { ...rest, apiKeyMasked: maskKey(key), apiKeySource: source, storage: storageMode(), emailAtivo: emailConfigurado() };
 }
 
 /** Visão pública para o site: sem nada sensível. */
 export function publicView(s: SiteSettings) {
-  const { apiKeyEnc: _a, extraInstructions: _b, model: _c, effort: _d, ...rest } = s;
+  const { apiKeyEnc: _a, extraInstructions: _b, model: _c, effort: _d, notifyEmail: _e, ...rest } = s;
   return { ...rest, chatAvailable: s.chatEnabled && Boolean(getApiKey(s).key) };
 }
 export type PublicSettings = ReturnType<typeof publicView>;

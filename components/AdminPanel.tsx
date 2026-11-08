@@ -8,6 +8,7 @@ type View = {
   chatEnabled: boolean; assistantName: string; welcomeMessage: string; model: string;
   effort: "low" | "medium" | "high"; extraInstructions: string; updatedAt?: string;
   apiKeyMasked: string | null; apiKeySource: "portal" | "env" | null; storage: string;
+  notifyEmail: string; officeHours: string; emailAtivo: boolean;
 };
 
 type Notice = { type: "ok" | "error"; text: string } | null;
@@ -52,11 +53,6 @@ export default function AdminPanel({ initial, models }: { initial: View; models:
     setNotice(data.ok ? { type: "ok", text: data.message } : { type: "error", text: data.error || "Falha no teste." });
   }
 
-  async function logout() {
-    await fetch("/api/admin/logout", { method: "POST" });
-    window.location.href = "/";
-  }
-
   const field = (k: keyof View, label: string, opts: { area?: boolean; hint?: string } = {}) => (
     <label>
       {label}
@@ -70,20 +66,32 @@ export default function AdminPanel({ initial, models }: { initial: View; models:
   );
 
   return (
-    <main className="admin-shell top">
+    <main className="cfg">
       <div className="admin-wrap">
         <header className="admin-header">
           <div>
-            <p className="eyebrow dark">Portal do escritório</p>
+            <p className="eyebrow">Portal do escritório</p>
             <h1>Configurações</h1>
-          </div>
-          <div className="row">
-            <a href="/" target="_blank" className="btn btn-outline-dark btn-sm">Ver site</a>
-            <button onClick={logout} className="btn btn-outline-dark btn-sm">Sair</button>
           </div>
         </header>
 
         {notice && <p className={`alert ${notice.type}`}>{notice.text}</p>}
+
+        <section className="admin-card highlight">
+          <h2>Contato e notificações</h2>
+          <p className="muted small">Estes dados aparecem no site e na assistente. Os resultados de cada atendimento vão para o e-mail de notificações.</p>
+          <div className="two">
+            {field("whatsapp", "WhatsApp do escritório (com DDI e DDD)", { hint: "Somente números, ex.: 5574991371324" })}
+            {field("phone", "Telefone exibido no site")}
+            {field("email", "E-mail exibido no site")}
+            {field("notifyEmail", "E-mail que recebe os contatos", { hint: "Novo lead e atendimento concluído chegam aqui." })}
+          </div>
+          {field("officeHours", "Horário de atendimento")}
+          <div className="status-row">
+            <span className={`pill ${s.emailAtivo ? "ok" : "warn"}`}>{s.emailAtivo ? "Envio de e-mail ativo" : "Envio de e-mail não configurado"}</span>
+            {!s.emailAtivo && <small>Falta definir RESEND_API_KEY e EMAIL_FROM na Vercel. Enquanto isso, todos os contatos ficam no Funil.</small>}
+          </div>
+        </section>
 
         <section className="admin-card">
           <h2>Integração de IA (Claude)</h2>
@@ -131,7 +139,7 @@ export default function AdminPanel({ initial, models }: { initial: View; models:
             Exibir o assistente virtual no site
           </label>
           <div className="row">
-            <button className="btn btn-outline-dark" onClick={test} disabled={busy !== null}>
+            <button className="btn btn-ghost-dark" onClick={test} disabled={busy !== null}>
               {busy === "test" ? "Testando…" : "Testar conexão"}
             </button>
             {s.apiKeySource === "portal" && (
@@ -168,9 +176,6 @@ export default function AdminPanel({ initial, models }: { initial: View; models:
             {field("officeName", "Nome do escritório")}
             {field("lawyerName", "Advogado responsável")}
             {field("oab", "Inscrição OAB")}
-            {field("phone", "Telefone")}
-            {field("whatsapp", "WhatsApp (com DDI e DDD)", { hint: "Somente números, ex.: 5511999999999" })}
-            {field("email", "E-mail")}
           </div>
           {field("address", "Endereço")}
           {field("tagline", "Frase de destaque")}
@@ -186,7 +191,7 @@ export default function AdminPanel({ initial, models }: { initial: View; models:
             Armazenamento: {s.storage}
             {s.updatedAt && ` · última alteração ${new Date(s.updatedAt).toLocaleString("pt-BR")}`}
           </small>
-          <button className="btn btn-gold" onClick={() => save()} disabled={busy !== null}>
+          <button className="btn btn-primary" onClick={() => save()} disabled={busy !== null}>
             {busy === "save" ? "Salvando…" : "Salvar alterações"}
           </button>
         </div>

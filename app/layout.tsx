@@ -1,18 +1,19 @@
-import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-serif" });
+const display = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["600", "700", "800"], variable: "--font-display" });
 const sans = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
-  title: "Ramon Advocacia",
-  description: "Escritório de advocacia com atendimento próximo e assistente virtual com IA.",
+  title: { default: "Ramon Advocacia · Golpes e fraudes pelo PIX", template: "%s · Ramon Advocacia" },
+  description: "Atendimento on-line para vítimas de golpes e fraudes pelo PIX. Organize seu caso com nossa assistente virtual e fale com o advogado.",
 };
+export const viewport: Viewport = { themeColor: "#07111f" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${serif.variable} ${sans.variable}`}>
+    <html lang="pt-BR" className={`${display.variable} ${sans.variable}`}>
       <body>{children}</body>
     </html>
   );
