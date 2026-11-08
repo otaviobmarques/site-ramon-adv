@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { adminConfigured, checkPassword, createSessionToken, SESSION_COOKIE } from "@/lib/auth";
+import { adminConfigured, checkCredentials, createSessionToken, SESSION_COOKIE } from "@/lib/auth";
 
 export const runtime = "nodejs";
 
@@ -15,12 +15,12 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Muitas tentativas. Aguarde alguns minutos." }, { status: 429 });
   }
 
-  const { password } = (await req.json().catch(() => ({}))) as { password?: string };
-  if (typeof password !== "string" || !checkPassword(password)) {
+  const { username, password } = (await req.json().catch(() => ({}))) as { username?: string; password?: string };
+  if (typeof username !== "string" || typeof password !== "string" || !checkCredentials(username, password)) {
     const count = (f?.count ?? 0) + 1;
     failures.set(ip, { count, until: count >= 5 ? Date.now() + 10 * 60 * 1000 : 0 });
     await new Promise((r) => setTimeout(r, 600));
-    return NextResponse.json({ error: "Senha incorreta." }, { status: 401 });
+    return NextResponse.json({ error: "Usuário ou senha incorretos." }, { status: 401 });
   }
   failures.delete(ip);
 

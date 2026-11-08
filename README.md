@@ -17,7 +17,7 @@ Site institucional (Next.js) com **assistente virtual de IA (Claude, da Anthropi
 
 1. Importe este repositório em **vercel.com/new**.
 2. Em **Settings → Environment Variables**, crie:
-   - `ADMIN_PASSWORD` — senha do portal;
+   - `ADMIN_USER` (padrão `Admin`) e `ADMIN_PASSWORD` — login do portal;
    - `SESSION_SECRET` — texto aleatório longo (ex.: `openssl rand -hex 32`). **Não troque depois**: ele também descriptografa a chave salva.
 3. Em **Storage → Create → Blob**, crie um Blob Store e conecte ao projeto (isso cria `BLOB_READ_WRITE_TOKEN` automaticamente). É onde as configurações do portal ficam salvas.
 4. Faça o redeploy, acesse `https://SEU-SITE.vercel.app/admin`, entre com a senha e cole a chave `sk-ant-...` (crie em https://platform.claude.com/settings/keys).

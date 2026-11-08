@@ -8,10 +8,13 @@ export function adminConfigured(): boolean {
   return Boolean(process.env.ADMIN_PASSWORD && process.env.SESSION_SECRET && process.env.SESSION_SECRET.length >= 16);
 }
 
-export function checkPassword(password: string): boolean {
+export function checkCredentials(username: string, password: string): boolean {
   const expected = process.env.ADMIN_PASSWORD;
   if (!expected) return false;
-  return safeEqual(password, expected);
+  const user = (process.env.ADMIN_USER || "Admin").toLowerCase();
+  const userOk = safeEqual(username.trim().toLowerCase(), user);
+  const passOk = safeEqual(password, expected);
+  return userOk && passOk;
 }
 
 export function createSessionToken(): { token: string; maxAge: number } {
