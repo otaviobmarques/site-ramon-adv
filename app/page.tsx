@@ -64,7 +64,6 @@ export default async function Home() {
               <p className="lead" data-reveal style={{ "--d": "160ms" } as React.CSSProperties}>{s.about}</p>
               <div className="hero-actions" data-reveal style={{ "--d": "240ms" } as React.CSSProperties}>
                 <Link href={cta} className="btn btn-primary btn-lg">Começar meu atendimento <span className="arrow">→</span></Link>
-                <a href={wa} target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-lg">Falar no WhatsApp</a>
               </div>
               <ul className="hero-trust" data-reveal style={{ "--d": "320ms" } as React.CSSProperties}>
                 <li>✓ Sem pedir senhas</li>
